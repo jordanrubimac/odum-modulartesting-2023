@@ -1,5 +1,10 @@
 MILES_TO_KM = 1.609
 
+#' Determines which routes are the busiest
+#' @param dataframe dataframe to be used
+#' @param startcol column for the starting location of the flight
+#' @param endcol column for the ending location of the flight
+#' @returns dataset containing distance from start to end location by passanger number
 #' @export
 busiest_routes = function (dataframe, startcol, endcol) {
   stopifnot(all({{dataframe}}$Passengers >= 1))
@@ -20,12 +25,17 @@ busiest_routes = function (dataframe, startcol, endcol) {
   return(arrange(pairs, -Passengers))
 }
 
+#' Determines market shares for airlines in airports
+#' @param dataframe dataframe to be used
+#' @param carrier column for airline carrier
+#' @param origin column for city/airport or origin
+#' @returns dataset containing percent of passengers in each airport for an airline
 #' @export
 market_shares = function(dataframe, carrier, origin) {
   mkt_shares = group_by({{dataframe}}, {{carrier}}, {{origin}}) %>%
     summarize(Passengers=sum(Passengers)) %>%
     group_by({{origin}}) %>%
-    mutate(market_share=Passengers/sum(Passengers), total_passengers=sum(Passengers)) %>%
+    mutate(market_share=Passengers/sum(Passengers)*100, total_passengers=sum(Passengers)) %>%
     ungroup()
 
   result = arrange(mkt_shares, -market_share)
