@@ -25,6 +25,11 @@ busiest_routes = function (dataframe, startcol, endcol) {
   return(arrange(pairs, -Passengers))
 }
 
+#' Determines market shares for airlines in airports
+#' @param dataframe dataframe to be used
+#' @param carrier column for airline carrier
+#' @param origin column for city/airport or origin
+#' @returns dataset containing percent of passengers in each airport for an airline
 #' @export
 market_shares = function(dataframe, carrier, origin) {
   mkt_shares = group_by({{dataframe}}, {{carrier}}, {{origin}}) %>%

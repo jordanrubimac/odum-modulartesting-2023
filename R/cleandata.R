@@ -1,3 +1,8 @@
+#' Cleans the datafiles to combine them into one
+#' @param datafile main datafile with flight info
+#' @param cityfile data file with information on cities
+#' @param carrierfile data file with info on airline carrier
+#' @returns a joined and cleaned datafile
 #' @export
 data_clean = function(datafile, cityfile, carrierfile) {
   data = readr::read_csv({{datafile}})
