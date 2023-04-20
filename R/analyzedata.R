@@ -1,5 +1,10 @@
 MILES_TO_KM = 1.609
 
+#' Determines which routes are the busiest
+#' @param dataframe dataframe to be used
+#' @param startcol column for the starting location of the flight
+#' @param endcol column for the ending location of the flight
+#' @returns dataset containing distance from start to end location by passanger number
 #' @export
 busiest_routes = function (dataframe, startcol, endcol) {
   stopifnot(all({{dataframe}}$Passengers >= 1))
